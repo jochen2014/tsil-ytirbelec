@@ -4,11 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server/index.js",
+    "start": "npm-run-all --parallel start-server start-client",
     "start-server": "node server/index.js",
     "start-client": "webpack-dev-server --port 3000 --color --progress --inline --bail",
-    "start-local": "npm-run-all --parallel start-server start-client",
-    "build": "webpack --progress --color --inline --bail",
+    "build": "webpack --progress --color --bail",
     "clean": "rimraf dist",
     "test": "jest"
   },
