@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "ee081bb5dfa14774af85"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "0b3bbb72dd24ae9d4cb8"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -2214,7 +2214,7 @@ __webpack_require__(23);
 
 // when debugging locally, webpack is running at a different port from express;
 // when running in production, client is servered as static pages;
-var API_HOST = Object({"NODE_ENV":"production"}).NODE_NEV === 'production' ? '/' : 'http://localhost:3001';
+var API_HOST =  true ? '/' : 'http://localhost:3001';
 
 function callApi(endpoint, options) {
     var fullUrl = endpoint.indexOf(API_HOST) === -1 ? API_HOST + endpoint : endpoint;

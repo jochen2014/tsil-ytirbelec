@@ -1,7 +1,7 @@
 import 'whatwg-fetch';
 // when debugging locally, webpack is running at a different port from express;
 // when running in production, client is servered as static pages;
-const API_HOST = process.env.NODE_NEV === 'production' ? '/': 'http://localhost:3001';
+const API_HOST = process.env.NODE_ENV === 'production' ? '/': 'http://localhost:3001';
 
 export default function callApi(endpoint, options) {
     const fullUrl = (endpoint.indexOf(API_HOST) === -1) ? API_HOST + endpoint : endpoint
