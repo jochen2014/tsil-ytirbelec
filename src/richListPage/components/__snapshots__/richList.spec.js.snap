@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RichList Test should render correctly 1`] = `
+<div
+  className="data-list"
+>
+  <div
+    className="data-item"
+  >
+    <div
+      className="rank"
+    >
+       
+      <span>
+        No: 
+        1
+      </span>
+    </div>
+    <div>
+      <span>
+        Name: 
+        bo chen
+      </span>
+    </div>
+    <div>
+      <span>
+        Net Worth: 
+        $USD 210,000,000.00
+      </span>
+    </div>
+    <div>
+      <span>
+        Age: 
+      </span>
+    </div>
+    <div>
+      <span>
+        Country of Birth: 
+        Australia
+      </span>
+    </div>
+  </div>
+  <div
+    className="data-item"
+  >
+    <div
+      className="rank"
+    >
+       
+      <span>
+        No: 
+        1
+      </span>
+    </div>
+    <div>
+      <span>
+        Name: 
+        test
+      </span>
+    </div>
+    <div>
+      <span>
+        Net Worth: 
+        $USD 200,000,000.00
+      </span>
+    </div>
+    <div>
+      <span>
+        Age: 
+      </span>
+    </div>
+    <div>
+      <span>
+        Country of Birth: 
+        United State
+      </span>
+    </div>
+  </div>
+</div>
+`;
