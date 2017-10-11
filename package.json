@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm-run-all --parallel start-server start-client",
+    "start": "node server/index.js",
+    "start-local": "npm-run-all --parallel start-server start-client",
     "start-server": "node server/index.js",
     "start-client": "webpack-dev-server --port 3000 --color --progress --inline --bail",
-    "build": "webpack --progress --color --bail",
+    "build": "cross-env NODE_ENV='production' webpack --progress --color --bail",
     "clean": "rimraf dist",
     "test": "jest"
   },
@@ -25,6 +26,7 @@
     "babel-polyfill": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "cross-env": "^5.0.5",
     "css-loader": "^0.28.7",
     "eslint": "^4.1.1",
     "eslint-config-airbnb-base": "^11.2.0",

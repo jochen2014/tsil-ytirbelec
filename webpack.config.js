@@ -3,6 +3,7 @@ var webpack = require('webpack');
 const autoprefixer = require('autoprefixer')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
+var env = process.env.NODE_ENV || 'develop'
 var config = {
   devtool: 'source-map',
   devServer: {
@@ -16,7 +17,12 @@ var config = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new ExtractTextPlugin('style.css')
+    new ExtractTextPlugin('style.css'),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify(env)
+      }
+    })
   ],
   module: {
     rules: [ // "style-loader!css-loader!less-loader" can only be used with module.loaders;

@@ -1,0 +1,118 @@
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+ul,
+ol {
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.main {
+  padding: 0 10px 0 10px;
+}
+.main .title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.main .title > div:last-child {
+  margin-top: 20px;
+}
+.main .content {
+  margin-top: 30px;
+  padding: 0 10px 0 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: #fafbfc;
+  border: 1px solid #e1e4e8;
+  min-height: 200px;
+}
+.main .content .filters .filter-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+.main .content .filters .filter-row .filter-item {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+.main .content .filters .filter-row .filter-item:first-child {
+  margin-right: 20px;
+}
+.main .content .filters .filter-row .filter-item label {
+  display: block;
+  font-size: 15px;
+  padding: 10px 0 2px 0;
+}
+.main .content .filters .filter-row .filter-item select,
+.main .content .filters .filter-row .filter-item input {
+  display: block;
+  font-size: 15px;
+  padding-left: 10px;
+  width: 100%;
+  height: 40px;
+  line-height: normal;
+  -webkit-transition: all 0.1s ease-out;
+  transition: all 0.1s ease-out;
+}
+.main .content .data-list {
+  font-size: 18px;
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #e1e4e8;
+}
+.main .content .data-list .data-item {
+  width: 100%;
+}
+.main .content .data-list .data-item > div {
+  text-align: center;
+  height: 40px;
+  margin-bottom: 10px;
+}
+.main .content .data-list .data-item .rank {
+  color: #fff;
+  background-color: #2e96ab;
+  padding-top: 10px;
+  font-weight: bold;
+}
+@media (min-width: 768px) and (max-width: 1200px) {
+  .main {
+    padding: 0 150px 0 150px;
+  }
+  .main .content {
+    padding: 0 50px 0 50px;
+  }
+}
+@media (min-width: 1200px) {
+  .main {
+    padding: 0 250px 0 250px;
+  }
+  .main .content {
+    padding: 0 200px 0 200px;
+  }
+}
+
+/*# sourceMappingURL=style.css.map*/
