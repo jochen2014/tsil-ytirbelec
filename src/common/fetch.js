@@ -1,6 +1,8 @@
 import 'whatwg-fetch';
+const API_HOST = 'http://localhost:3001'
 
 export default function callApi(endpoint, options) {
+    const fullUrl = (endpoint.indexOf(API_HOST) === -1) ? API_HOST + endpoint : endpoint
     const defaultOptions = {
         method: 'get',
         headers: {
@@ -11,7 +13,7 @@ export default function callApi(endpoint, options) {
     };
     const fetchOptions = options || {};
 
-    return fetch(endpoint, {...defaultOptions, ...fetchOptions})
+    return fetch(fullUrl, {...defaultOptions, ...fetchOptions})
         .then(res => {
             if (res.status >= 400) {
                 throw new Error("Bad response from server");
@@ -25,8 +27,3 @@ export default function callApi(endpoint, options) {
             return Promise.reject(err)
         })
 };
-
-//to demo why jest.genMockFromModule is required
-export function dummy(){
-    return 'hello'
-}

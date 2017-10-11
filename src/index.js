@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import ReactDom from 'react-dom';
 import './styles/index.less'
 
-import HomePage from './components/homePage';
+import RichListPage from './richListPage';
 class App extends Component {
     render() {
-        return <HomePage />
+        return <RichListPage />
     }
 }
 

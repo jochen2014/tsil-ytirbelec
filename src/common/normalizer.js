@@ -1,5 +1,8 @@
 import moment from 'moment';
 
-export default function (response) {
-    return response
+export default function ParseResponse(response) {
+    return {
+        pageData:{},
+        richList:[],
+    }
 }
