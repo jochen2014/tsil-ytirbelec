@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import RichListTitle from './components/richListTitle';
 import RichListFilters from './components/richListFilters';
 import RichList from './components/richList';
 
@@ -8,7 +9,8 @@ class RichListPage extends Component {
         super();
         this.state = {
             loading: false,
-            pageData: undefined,
+            titleData: undefined,
+            filterData: undefined,
             richList: [],
         }
     }
@@ -18,11 +20,11 @@ class RichListPage extends Component {
         });
         fetch('/richList')
             .then(res => {
-                console.log(res)
-                const {pageData, richList} = normalize(res);
+                const {titleData, filterData, richList} = normalize(res);
                 this.setState({
                     loading: false,
-                    pageData,
+                    titleData,
+                    filterData,
                     richList,
                 })
             })
@@ -39,13 +41,17 @@ class RichListPage extends Component {
     }
 
     render() {
-        const {loading, pageData, richList} = this.state;
+        const {loading, titleData, filterData, richList} = this.state;
         return <div>
             {
                 loading ? <h1>loading data... please wait</h1>
-                    : <div>
-                        <RichListFilters />
-                        <RichList />
+                    : <div className="main">
+                        <RichListTitle titleData={titleData} />
+                        <div className="content">
+                            <RichListFilters filterData={filterData} />
+                            <RichList richList={richList} />
+                        </div>
+
                     </div>
             }
         </div>

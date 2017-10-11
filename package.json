@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start":"node server/index.js",
-    "start-dev": "webpack-dev-server --port 3000 --color --progress --inline --bail",
-    "build": "rimraf dist",
-    "test": "jest",
-    "debug-test": "node --debug-brk node_modules/jest/bin/jest.js  --no-cache --runInBand  "
+    "start": "node server/index.js",
+    "start-server":"node server/index.js",
+    "start-client":"webpack-dev-server --port 3000 --color --progress --inline --bail",
+    "start-local": "npm-run-all --parallel start-server start-client",
+    "build":"webpack --progress --color --inline --bail",
+    "clean": "rimraf dist",
+    "test": "jest"
   },
   "dependencies": {
     "express": "^4.16.2"
@@ -33,6 +35,7 @@
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
     "moment": "^2.18.1",
+    "npm-run-all": "^4.1.1",
     "postcss-loader": "^2.0.6",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
