@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {FilterItem} from '../../common';
+import React, { Component } from 'react';
+import { FilterItem } from '../../common';
 
 
 class RichListFilters extends Component {
@@ -35,11 +35,11 @@ class RichListFilters extends Component {
     }
 
     loadFilters = () => {
-        const {countryOptions: oldList} = this.state;
-        const {filterData} = this.props;
+        const { countryOptions: oldList } = this.state;
+        const { filterData } = this.props;
         // build up state from props;
         if (filterData) {
-            const {countryList, usDollarValue, euroValue, australianDollarValue} = filterData;
+            const { countryList, usDollarValue, euroValue, australianDollarValue } = filterData;
             const countryOptions = [{
                 val: 'all',
                 text: 'Show All'
@@ -77,21 +77,31 @@ class RichListFilters extends Component {
     componentWillReceiveProps() {
         this.loadFilters();
     }
-    onSelectionChanged = name => sel => {
-        const stateNew = {...this.state}; // make sure you don't mutate state directly;
-        stateNew[name] = sel;
+    onSelectionChanged = name => value => {
+        const stateNew = { ...this.state }; // make sure you don't mutate state directly;
+        stateNew[name] = value;
         this.setState(stateNew);
+        const { onFilterChanged } = this.props;
+        onFilterChanged({
+            name,
+            value,
+        })
     }
-    onSearchTextChanged = val => {
+    onSearchTextChanged = value => {
         this.setState({
-            searchText: val,
+            searchText: value,
+        })
+        const { onFilterChanged } = this.props;
+        onFilterChanged({
+            name:'searchText',
+            value,
         })
     }
     render() {
-        const {ready, countryOptions, selectedCountry,
+        const { ready, countryOptions, selectedCountry,
             searchText,
             currencyOptions, selectedCurrency,
-            orderByOptions, selectedOrderBy} = this.state;
+            orderByOptions, selectedOrderBy } = this.state;
         if (!ready) {
             return null;
         }
