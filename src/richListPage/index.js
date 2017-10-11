@@ -8,10 +8,17 @@ class RichListPage extends Component {
     constructor() {
         super();
         this.state = {
-            loading: false,
-            titleData: undefined,
-            filterData: undefined,
+            titleData: {
+                pageTitleH1: 'Loading...'
+            },
+            filterOptionsData: undefined,
             richList: [],
+            selectedFilters: {
+                selectedCountry: 'all',
+                selectedCurrency: 'usd-1',
+                searchText: '',
+                selectedOrderBy: 'rank',
+            }
         }
     }
     componentDidMount() {
@@ -20,11 +27,10 @@ class RichListPage extends Component {
         });
         fetch('/richList')
             .then(res => {
-                const { titleData, filterData, richList } = normalize(res);
+                const { titleData, filterOptionsData, richList } = normalize(res);
                 this.setState({
-                    loading: false,
                     titleData,
-                    filterData,
+                    filterOptionsData,
                     richList,
                 })
             })
@@ -41,23 +47,52 @@ class RichListPage extends Component {
     }
 
     onFilterChanged = filterData => {
-        console.log(filterData);
+        const { name, value } = filterData;
+        const { selectedFilters } = this.state;
+        const newFilters = { ...selectedFilters };
+        newFilters[name] = value;
+        this.setState({
+            selectedFilters: newFilters
+        })
+    }
+
+    applyFilters = () => {
+        const { richList, selectedFilters: { selectedCountry, selectedCurrency, searchText, selectedOrderBy } } = this.state;
+        const [code, conversionRate] = selectedCurrency.split('-'); //usd-1, euro-0.92, aud-0.78
+        const filteredResult = richList.filter(r => {
+            let filterResult = true;
+            if (selectedCountry !== 'all') {
+                filterResult = r.country === selectedCountry;
+            }
+            if (searchText !== '') {
+                const fullText = Object.values(r).map(v => v.toString()).join('').toLowerCase();
+                filterResult = filterResult & fullText.lastIndexOf(searchText.toLowerCase()) !== -1;
+            }
+            return filterResult;
+        }).sort((r1, r2) => {
+            return r1[selectedOrderBy] - r2[selectedOrderBy];
+        }).map(r => ({
+            ...r,
+            netWorth: r.netWorth / conversionRate,
+        }));
+
+        return filteredResult;
     }
     render() {
-        const { loading, titleData, filterData, richList } = this.state;
-        return <div>
-            {
-                loading ? <h1>loading data... please wait</h1>
-                    : <div className="main">
-                        <RichListTitle titleData={titleData} />
-                        <div className="content">
-                            <RichListFilters filterData={filterData} onFilterChanged={this.onFilterChanged}/>
-                            <RichList richList={richList} />
-                        </div>
-
-                    </div>
-            }
+        const { titleData, filterOptionsData, selectedFilters, richList } = this.state;
+        const selectedCurrencyCode = selectedFilters.selectedCurrency.split('-')[0];
+        
+        const filteredResult = this.applyFilters(richList);
+        return <div className="main">
+            <RichListTitle titleData={titleData} />
+            <div className="content">
+                <RichListFilters filterOptionsData={filterOptionsData}
+                    selectedFilters={selectedFilters}
+                    onFilterChanged={this.onFilterChanged} />
+                <RichList richList={filteredResult} currencyCode={selectedCurrencyCode} />
+            </div>
         </div>
+
     }
 
 }

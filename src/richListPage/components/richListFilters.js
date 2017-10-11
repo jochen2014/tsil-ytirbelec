@@ -4,18 +4,13 @@ import { FilterItem } from '../../common';
 
 class RichListFilters extends Component {
 
+
     constructor() {
         super();
         this.state = {
-            ready: false,
+            optionsLoaded: false,
             countryOptions: [],
-            selectedCountry: undefined,
-
             currencyOptions: [],
-            selectedCurrency: undefined,
-
-            searchText: '',
-
             orderByOptions: [
                 {
                     val: 'rank',
@@ -30,57 +25,49 @@ class RichListFilters extends Component {
                     text: 'Age'
                 },
             ],
-            selectedOrderBy: 'rank',
         }
     }
 
-    loadFilters = () => {
-        const { countryOptions: oldList } = this.state;
-        const { filterData } = this.props;
-        // build up state from props;
-        if (filterData) {
-            const { countryList, usDollarValue, euroValue, australianDollarValue } = filterData;
-            const countryOptions = [{
-                val: 'all',
-                text: 'Show All'
-            }].concat(countryList.map(c => ({
-                val: c,
-                text: c
-            })));
-            const currencyOptions = [
-                {
-                    val: 1,
-                    text: 'US Dollar'
-                },
-                {
-                    val: euroValue,
-                    text: 'Euro'
-                },
-                {
-                    val: australianDollarValue,
-                    text: 'Australian Dollar'
-                },
-            ];
-            this.setState({
-                ready: true,
-                countryOptions: countryOptions,
-                selectedCountry: 'all',
-                currencyOptions,
-                selectedCurrency: 1,
-            })
-        }
+    loadFilterOptionsData = newOptionsData => {
+        const { countryList, usDollarValue, euroValue, australianDollarValue } = newOptionsData;
+        const countryOptions = [{
+            val: 'all',
+            text: 'Show All'
+        }].concat(countryList.map(c => ({
+            val: c,
+            text: c
+        })));
+        const currencyOptions = [
+            {
+                val: 'usd-1',
+                text: 'US Dollar',
+                name: 'usd',
+            },
+            {
+                val: 'euro-' + euroValue, //euro rate could be the same as aud rate, theoretically;
+                text: 'Euro',
+            },
+            {
+                val: 'aud-' + australianDollarValue,
+                text: 'Australian Dollar',
+            },
+        ];
+        this.setState({
+            optionsLoaded: true,
+            countryOptions: countryOptions,
+            currencyOptions,
+        })
+
     }
 
-    componentWillMount() {
-        this.loadFilters();
-    }
-    componentWillReceiveProps() {
-        this.loadFilters();
+    componentWillReceiveProps(nextProps) {
+        const { filterOptionsData: oldOptionsData } = this.props;
+        const { filterOptionsData: newOptionsData } = nextProps;
+        if (oldOptionsData !== newOptionsData) {
+            this.loadFilterOptionsData(newOptionsData);
+        }
     }
     onSelectionChanged = name => value => {
-        const stateNew = { ...this.state }; // make sure you don't mutate state directly;
-        stateNew[name] = value;
-        this.setState(stateNew);
         const { onFilterChanged } = this.props;
         onFilterChanged({
             name,
@@ -88,21 +75,17 @@ class RichListFilters extends Component {
         })
     }
     onSearchTextChanged = value => {
-        this.setState({
-            searchText: value,
-        })
         const { onFilterChanged } = this.props;
         onFilterChanged({
-            name:'searchText',
+            name: 'searchText',
             value,
         })
     }
     render() {
-        const { ready, countryOptions, selectedCountry,
-            searchText,
-            currencyOptions, selectedCurrency,
-            orderByOptions, selectedOrderBy } = this.state;
-        if (!ready) {
+        const { optionsLoaded, countryOptions, currencyOptions, orderByOptions } = this.state;
+        const { selectedCountry, selectedCurrency,
+            searchText, selectedOrderBy } = this.props;
+        if (!optionsLoaded) {
             return null;
         }
         return <div className="filters">

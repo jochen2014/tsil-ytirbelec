@@ -1,10 +1,21 @@
-export const sortDataByField = data => (i1, i2) => {
-    const result = Date.parse(i1.dateCreated_raw) - Date.parse(i2.dateCreated_raw);
-    return order === 'ascending' ? result : result * -1;
-}
-export const filterDataByState = state => data => {
-    if (state === 'all') {
-        return true;
+export const toCurrency = (value, currency) => {
+    if (value === null) {
+        return 'N/A';
     }
-    return data.state === data;
+    let currencyChar = '';
+    switch (currency) {
+        case 'usd':
+            currencyChar = "$USD";
+            break;
+        case 'euro':
+            currencyChar = '\u{20ac}';
+            break;
+        case 'aud':
+            currencyChar = '$AUD';
+            break;
+        default:
+            throw 'unsupported currency'
+    }
+
+    return `${currencyChar} ${value.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
 }
