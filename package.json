@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node server/index.js",
-    "start-server":"node server/index.js",
-    "start-client":"webpack-dev-server --port 3000 --color --progress --inline --bail",
+    "start-server": "node server/index.js",
+    "start-client": "webpack-dev-server --port 3000 --color --progress --inline --bail",
     "start-local": "npm-run-all --parallel start-server start-client",
-    "build":"webpack --progress --color --inline --bail",
+    "build": "webpack --progress --color --inline --bail",
     "clean": "rimraf dist",
     "test": "jest"
   },
@@ -34,6 +34,7 @@
     "jest": "^21.1.0",
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
+    "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "npm-run-all": "^4.1.1",
     "postcss-loader": "^2.0.6",
