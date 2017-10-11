@@ -59,7 +59,10 @@ class RichListPage extends Component {
     applyFilters = () => {
         const { richList, selectedFilters: { selectedCountry, selectedCurrency, searchText, selectedOrderBy } } = this.state;
         const [code, conversionRate] = selectedCurrency.split('-'); //usd-1, euro-0.92, aud-0.78
-        const filteredResult = richList.filter(r => {
+        const filteredResult = richList.map(r => ({
+            ...r,
+            netWorth: r.netWorth / conversionRate,
+        })).filter(r => {
             let filterResult = true;
             if (selectedCountry !== 'all') {
                 filterResult = r.country === selectedCountry;
@@ -71,17 +74,14 @@ class RichListPage extends Component {
             return filterResult;
         }).sort((r1, r2) => {
             return r1[selectedOrderBy] - r2[selectedOrderBy];
-        }).map(r => ({
-            ...r,
-            netWorth: r.netWorth / conversionRate,
-        }));
+        });
 
         return filteredResult;
     }
     render() {
         const { titleData, filterOptionsData, selectedFilters, richList } = this.state;
         const selectedCurrencyCode = selectedFilters.selectedCurrency.split('-')[0];
-        
+
         const filteredResult = this.applyFilters(richList);
         return <div className="main">
             <RichListTitle titleData={titleData} />
