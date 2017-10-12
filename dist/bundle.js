@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "8d86f89606eb10992b88"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "e407bf9761f63836293c"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -1855,8 +1855,8 @@ var RichListPage = function (_Component) {
                     filterResult = r.country === selectedCountry;
                 }
                 if (searchText !== '') {
-                    var fullText = Object.values(r).map(function (v) {
-                        return v.toString();
+                    var fullText = Object.keys(r).map(function (k) {
+                        return r[k].toString();
                     }).join('').toLowerCase();
                     filterResult = filterResult & fullText.lastIndexOf(searchText.toLowerCase()) !== -1;
                 }
