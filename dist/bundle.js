@@ -15,6 +15,7 @@
 /******/ 		script.type = "text/javascript";
 /******/ 		script.charset = "utf-8";
 /******/ 		script.src = __webpack_require__.p + "" + chunkId + "." + hotCurrentHash + ".hot-update.js";
+/******/ 		;
 /******/ 		head.appendChild(script);
 /******/ 	}
 /******/ 	
@@ -60,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "0b3bbb72dd24ae9d4cb8"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "8d86f89606eb10992b88"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -1861,7 +1862,8 @@ var RichListPage = function (_Component) {
                 }
                 return filterResult;
             }).sort(function (r1, r2) {
-                return r1[selectedOrderBy] - r2[selectedOrderBy];
+                //bugfix: order by Name which is a string value ('a' - 'b' = NaN so you can't do it that way)
+                return r1[selectedOrderBy] > r2[selectedOrderBy] ? 1 : -1;
             });
 
             return filteredResult;
