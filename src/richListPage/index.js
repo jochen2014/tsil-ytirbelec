@@ -68,7 +68,7 @@ class RichListPage extends Component {
                 filterResult = r.country === selectedCountry;
             }
             if (searchText !== '') {
-                const fullText = Object.values(r).map(v => v.toString()).join('').toLowerCase();
+                const fullText = Object.keys(r).map(k => r[k].toString()).join('').toLowerCase();
                 filterResult = filterResult & fullText.lastIndexOf(searchText.toLowerCase()) !== -1;
             }
             return filterResult;
