@@ -73,7 +73,8 @@ class RichListPage extends Component {
             }
             return filterResult;
         }).sort((r1, r2) => {
-            return r1[selectedOrderBy] - r2[selectedOrderBy];
+            //bugfix: order by Name which is a string value ('a' - 'b' = NaN so you can't do it that way)
+            return r1[selectedOrderBy] > r2[selectedOrderBy] ? 1 : -1;
         });
 
         return filteredResult;
