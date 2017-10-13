@@ -2,13 +2,10 @@ var path = require('path');
 var webpack = require('webpack');
 const autoprefixer = require('autoprefixer')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 var env = process.env.NODE_ENV || 'develop'
 var config = {
-  devtool: 'source-map',
-  devServer: {
-    historyApiFallback: true
-  },
   entry: './src/index.js',
   output: {
     path: path.resolve('./dist'),
@@ -16,7 +13,7 @@ var config = {
     publicPath: '/'
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    new UglifyJSPlugin(),
     new ExtractTextPlugin('style.css'),
     new webpack.DefinePlugin({
       'process.env': {
